@@ -1,7 +1,3 @@
-## Link 
-
-https://laraveldaily.com/test-junior-laravel-developer-sample-project/
-
 ## Basic Test
 
 - Basic Laravel Auth: ability to log in as administrator √
