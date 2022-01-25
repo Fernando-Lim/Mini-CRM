@@ -10,7 +10,9 @@ return [
     'table2' => 'Email',
     'table3' => 'Logo',
     'table4' => 'Website',
-    'table5' => 'Action',
+    'table5' => 'Created At',
+    'table6' => 'Updated At',
+    'table7' => 'Action',
 
     'status1' => 'No Data',
     'status2' => 'Companie Added Sucessfully!',
@@ -22,6 +24,15 @@ return [
     'btn3' => 'Delete',
     'btn4' => 'Back',
     'btn5' => 'Edit Companie',
+    'btn6' => 'Filter',
+    'btn7' => 'Refresh',
+
+    'fromdate' => 'From Date',
+    'todate' => 'To Date',
+
+    'filtername' => 'Name',
+    'filteremail' => 'Email',
+    'filterwebsite' => 'Website',
 
     'alert' => 'Are You Sure?',
 ];

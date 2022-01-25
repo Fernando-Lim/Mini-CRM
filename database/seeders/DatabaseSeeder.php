@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use bfinlay\SpreadsheetSeeder\SpreadsheetSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,8 +14,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(1)->create();
-        // \App\Models\Employee::factory(1000)->create();
-        // \App\Models\Companie::factory(1000)->create();
+        \App\Models\User::factory(1)->create();
+        // $this->call([
+        //     SpreadsheetSeeder::class,
+        // ]);
+
+
+        
+        \App\Models\Employee::factory(1000)->create();
+        \App\Models\Companie::factory(1000)->create();
     }
 }

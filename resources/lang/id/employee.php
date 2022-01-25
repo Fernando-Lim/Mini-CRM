@@ -11,7 +11,9 @@ return [
     'table3' => 'Nama Perusahaan',
     'table4' => 'Email',
     'table5' => 'Ponsel',
-    'table6' => 'Aksi',
+    'table6' => 'Dibuat',
+    'table7' => 'Diperbaharui',
+    'table8' => 'Aksi',
 
     'status1' => 'Data Kosong',
     'status2' => 'Karyawan Berhasil Ditambahkan!',
@@ -23,6 +25,17 @@ return [
     'btn3' => 'Hapus',
     'btn4' => 'Kembali',
     'btn5' => 'Ubah Karyawan',
+    'btn6' => 'Filter',
+    'btn7' => 'Muat Ulang',
+
+    'fromdate' => 'Dari Tanggal',
+    'todate' => 'Sampai Tanggal',
+
+    'filterfirstname' => 'Nama Depan',
+    'filterlastname' => 'Nama Belakang',
+    'filtercompany' => 'Nama Perusahaan',
+    'filteremail' => 'Email',
+    'filterphonenumber' => 'Ponsel',
 
     'alert' => 'Anda Yakin?',
 ];

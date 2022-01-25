@@ -24,6 +24,7 @@ class EmployeeResource extends JsonResource
             'companie' => [
                 'name' => $this->companie->name
             ]
+        
         ];
     }
 }

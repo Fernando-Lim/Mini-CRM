@@ -25,7 +25,9 @@ class CompanieFactory extends Factory
             'name' => $this->faker->company,
             'email' => $this->faker->companyEmail,
             'logo' => 'default.jpg',
-            'website' => $this->faker->domainName
+            'website' => $this->faker->domainName,
+            'created_by_id' => '1',
+            'updated_by_id' => '1'
         ];
     }
 }

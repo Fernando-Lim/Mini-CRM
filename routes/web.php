@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CompanieController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\Auth\SocialiteController;
-
+use App\Jobs\SendEmailJob;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,14 +33,26 @@ Route::middleware('auth')->group(function(){
         return view('home');
     });
 
+    Route::get('tz/{tz}', ['as' => 'tz.switch', 'uses' => App\Http\Controllers\TimezoneController::class,'switch']);
+
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     Route::resource('employees',EmployeeController::class)->except(['destroy']);
     Route::get('/employees/{employee}/destroy',[EmployeeController::class,'destroy'])->name('employees.destroy');
     
     Route::resource('companies',CompanieController::class)->except(['destroy']);
+    
     Route::get('/companies/{company}/destroy',[CompanieController::class,'destroy'])->name('companies.destroy');
     
+    Route::get('test/email', function(){
+        $send_mail = 'lim.liete@gmail.com';
+        dispatch(new App\Jobs\SendEmailJob($send_mail));
+        dd('send mail successfully !!');
+    });
+    
+
+    
+
 });
 
 

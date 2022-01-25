@@ -46,6 +46,20 @@
                                     @include('layouts.error', ['name' => 'website'])
                                 </div>
                             </div>
+                            <div class="col-6 " style="display: none;">
+                                <label for="">{{ __('Created By Id') }}</label>
+                                <div class="mt-2">
+                                    <input type="text" name="created_by_id" class="form-control" value="{{ $company->created_by_id }}">
+                                    @include('layouts.error', ['name' => 'created_by_id'])
+                                </div>
+                            </div>
+                            <div class="col-6 " style="display: none;">
+                                <label for="">{{ __('Updated By Id') }}</label>
+                                <div class="mt-2">
+                                    <input type="text" name="updated_by_id" class="form-control" value="{{ Auth::id() }}">
+                                    @include('layouts.error', ['name' => 'updated_by_id'])
+                                </div>
+                            </div>
                       </div>
                       <div class="row p-3">
                             <button class="btn btn-primary btn-block" type="submit"> {{ __('companie.btn5') }}</button>

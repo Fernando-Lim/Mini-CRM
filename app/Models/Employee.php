@@ -14,7 +14,9 @@ class Employee extends Model
         'last_name',
         'companie_id',
         'email',
-        'phone'
+        'phone',
+        'created_by_id',
+        'updated_by_id'
     ];
 
     public function companie(){

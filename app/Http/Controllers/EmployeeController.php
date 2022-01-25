@@ -6,6 +6,8 @@ use App\Models\Companie;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Http\Requests\EmployeeStoreRequest;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
 {
@@ -45,7 +47,9 @@ class EmployeeController extends Controller
             'last_name' => $request->last_name,
             'companie_id' => $request->companie_id,
             'email' => $request->email,
-            'phone' => $request->phone
+            'phone' => $request->phone,
+            'created_by_id' => $request->created_by_id,
+            'updated_by_id' => $request->updated_by_id
         ]);
 
         return redirect()->route('employees.create')->with('message',['text' => __('employee.status2'), 'class' => 'success']);
@@ -88,7 +92,8 @@ class EmployeeController extends Controller
             'last_name' => $request->last_name,
             'companie_id' => $request->companie_id,
             'email' => $request->email,
-            'phone' => $request->phone
+            'phone' => $request->phone,
+            'updated_by_id' => $request->updated_by_id
         ]);
 
         return redirect()->route('employees.edit',$employee->id)->with('message',['text' => __('employee.status3'), 'class' => 'success']);
@@ -104,5 +109,15 @@ class EmployeeController extends Controller
     {
         $employee->delete();
         return redirect()->route('employees.index')->with('message',['text' => __('employee.status4'), 'class' => 'success']);
+    }
+
+    public function employee(){
+        $data = "Data All Employee";
+        return response()->json($data, 200);
+    }
+
+    public function employeeAuth() {
+        $data = "Welcome " . Auth::user()->name;
+        return response()->json($data, 200);
     }
 }

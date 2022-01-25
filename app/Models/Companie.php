@@ -13,7 +13,9 @@ class Companie extends Model
         'name',
         'email',
         'logo',
-        'website'
+        'website',
+        'created_by_id',
+        'updated_by_id'
     ];
 
     public function employees(){

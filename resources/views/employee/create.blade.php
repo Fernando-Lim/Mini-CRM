@@ -54,6 +54,16 @@
                                 <input type="text" class="form-control" name="phone" value="{{ old('phone')}}">
                                 @include('layouts.error', ['name' => 'phone'])
                             </div>
+                            <div class="col-6" style="display: none;">
+                                <label for="">{{ __('Created By Id') }}</label>
+                                <input type="text" class="form-control" name="created_by_id" value="{{ Auth::id() }}">
+                                @include('layouts.error', ['name' => 'created_by_id'])
+                            </div>
+                            <div class="col-6" style="display: none;">
+                                <label for="">{{ __('Updated By Id') }}</label>
+                                <input type="text" class="form-control" name="updated_by_id" value="{{ Auth::id() }}">
+                                @include('layouts.error', ['name' => 'updated_by_id'])
+                            </div>
                         </div>
                         <div class="row p-3">
                             <button class="btn btn-primary btn-block" type="submit">{{ __('employee.btn1') }}</button>

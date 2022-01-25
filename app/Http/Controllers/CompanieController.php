@@ -7,6 +7,12 @@ use App\Models\Companie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\CompanieStoreRequest;
+use App\Jobs\comp;
+use App\Jobs\SendEmailJob;
+use Carbon\Carbon;
+use Exception;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CompanieController extends Controller
 {
@@ -28,6 +34,7 @@ class CompanieController extends Controller
      */
     public function index()
     {
+        
         // $companies = Companie::latest()->paginate(10);
         // return view('companie.index',compact('companies'));
         return view('companie.index');
@@ -59,14 +66,18 @@ class CompanieController extends Controller
         }else{
             $this->logoName = 'default.jpg';
         }
+
         
         Companie::create([
             'name' => $request->name,
             'email' => $request->email,
             'logo' => $this->logoName,
-            'website' => $request->website
+            'website' => $request->website,
+            'created_by_id' => $request->created_by_id,
+            'updated_by_id' => $request->updated_by_id
         ]);
-
+        $send_mail = $request->email;
+        dispatch(new SendEmailJob($send_mail));
         return redirect()->route('companies.create')->with('message',['text' => __('companie.status2'), 'class' => 'success']);
     }
 
@@ -116,7 +127,8 @@ class CompanieController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'logo' => $this->logoName,
-            'website' => $request->website
+            'website' => $request->website,
+            'updated_by_id' =>$request->updated_by_id
         ]);
 
         return redirect()->route('companies.edit',$company->id)->with('message',['text' => __('companie.status3'), 'class' => 'success']);
@@ -134,4 +146,5 @@ class CompanieController extends Controller
         $company->delete();
         return redirect()->route('companies.index')->with('message',['text' => __('companie.status4'), 'class' => 'success']);
     }
+
 }

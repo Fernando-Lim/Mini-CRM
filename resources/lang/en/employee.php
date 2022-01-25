@@ -11,7 +11,9 @@ return [
     'table3' => 'Company Name',
     'table4' => 'Email',
     'table5' => 'Phone',
-    'table6' => 'Action',
+    'table6' => 'Created At',
+    'table7' => 'Updated At',
+    'table8' => 'Action',
 
     'status1' => 'No Data',
     'status2' => 'Employee Added Sucessfully!',
@@ -23,6 +25,17 @@ return [
     'btn3' => 'Delete',
     'btn4' => 'Back',
     'btn5' => 'Edit Employee',
+    'btn6' => 'Filter',
+    'btn7' => 'Refresh',
+
+    'fromdate' => 'From Date',
+    'todate' => 'To Date',
+
+    'filterfirstname' => 'First Name',
+    'filterlastname' => 'Last Name',
+    'filtercompany' => 'Company Name',
+    'filteremail' => 'Email',
+    'filterphonenumber' => 'Phone Number',
 
     'alert' => 'Are You Sure?',
 ];

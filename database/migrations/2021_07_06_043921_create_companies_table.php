@@ -20,6 +20,11 @@ class CreateCompaniesTable extends Migration
             $table->string('logo');
             $table->string('website');
             $table->timestamps();
+            $table->unsignedBigInteger('created_by_id')->nullable()->index();
+            $table->unsignedBigInteger('updated_by_id')->nullable()->index();
+
+            $table->foreign('created_by_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('updated_by_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

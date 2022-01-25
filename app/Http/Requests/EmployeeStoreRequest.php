@@ -21,14 +21,16 @@ class EmployeeStoreRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules()                                                             
     {
         return [
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'companie_id' => 'required|numeric',
             'email' => 'required|email|string',
-            'phone' => 'required|numeric|min:15'
+            'phone' => 'required|numeric|min:15',
+            'created_by_id' => 'required|string',
+            'updated_by_id' => 'required|string'
         ];
     }
 }
