@@ -5,6 +5,7 @@ use App\Http\Controllers\CompanieController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Jobs\SendEmailJob;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,7 +49,7 @@ Route::middleware('auth')->group(function(){
         $send_mail = 'lim.liete@gmail.com';
         dispatch(new App\Jobs\SendEmailJob($send_mail));
         dd('send mail successfully !!');
-    });
+    })->name('sendEmail');
     
 
     

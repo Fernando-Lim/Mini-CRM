@@ -6,7 +6,7 @@ use bfinlay\SpreadsheetSeeder\SpreadsheetSeeder;
 use Illuminate\Database\Seeder;
 use Spatie\TranslationLoader\LanguageLine;
 
-class DatabaseSeeder extends Seeder
+class TestLanguageDatabaseSeeder extends Seeder
 {
     /**
      * Seed the application's database.
@@ -15,11 +15,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(1)->create();
-        $this->call([
-            SpreadsheetSeeder::class,
-        ]);
-
         //Companie
         LanguageLine::create([
             'group' => 'companie',
@@ -369,9 +364,5 @@ class DatabaseSeeder extends Seeder
             'key' => 'component-companie',
             'text' => ['en' => 'Companies', 'id' => 'Perusahaan'],
         ]);
-
-
-        // \App\Models\Employee::factory(1000)->create();
-        // \App\Models\Companie::factory(1000)->create();
     }
 }

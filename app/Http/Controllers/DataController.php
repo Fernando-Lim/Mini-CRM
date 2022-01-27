@@ -31,4 +31,16 @@ class DataController extends Controller
 
         return response()->json(compact('employee'), 200);
     }
+    public function getEmployeesTest()
+    {
+        
+
+
+        $employee = Employee::with(['companie' => function ($query) {
+            $query->select(['id', 'name']);
+        }])->select('id', 'first_name', 'last_name', 'email', 'phone', 'companie_id', 'created_at', 'updated_at');
+        $employee = $employee->where('companie_id', '1')->get();
+
+        return response()->json(compact('employee'), 200);
+    }
 }

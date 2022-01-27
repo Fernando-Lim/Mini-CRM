@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Mail;
 class SendEmailJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    protected $send_mail;
+    public $send_mail;
     /**
      * Create a new job instance.
      *
@@ -36,5 +36,6 @@ class SendEmailJob implements ShouldQueue
         //
         $email = new SendEmailDemo();
         Mail::to($this->send_mail)->send($email);
+        
     }
 }

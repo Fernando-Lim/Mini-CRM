@@ -13,10 +13,11 @@ class CompanieTest extends TestCase
 
     public $user;
 
-    protected function setUp() : void{
-          parent::setUp();
-          $this->user = User::factory()->create();
-          $this->actingAs($this->user);
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->user = User::factory()->create();
+        $this->actingAs($this->user);
     }
 
     // public function testWhenNotLogginIn(){
@@ -24,66 +25,72 @@ class CompanieTest extends TestCase
     //    $response->assertRedirect(route('login'));
     // }
 
-    public function testAllowCompanieIndex(){
-       $response = $this->get(route('companies.index'));
-       $response->assertOk();
-       $response->assertViewIs('companie.index');
+    public function testAllowCompanieIndex()
+    {
+        $response = $this->get(route('companies.index'));
+        $response->assertOk();
+        $response->assertViewIs('companie.index');
     }
 
-    public function testAllowCompanieCreate(){
+    public function testAllowCompanieCreate()
+    {
         $response = $this->get(route('companies.create'));
         $response->assertOk();
         $response->assertViewIs('companie.create');
     }
 
-   public function testAllowCompanieStore()
-   {
-       $params = [
-        'name' => 'xiomi',
-        'email' => 'xiomi@gmail.com',
-        'website' => 'xiomi.com'
-       ];
+    public function testAllowCompanieStore()
+    {
+        $params = [
+            'name' => 'xiomi',
+            'email' => 'xiomi@gmail.com',
+            'website' => 'xiomi.com',
+            'created_by_id' => '1',
+            'updated_by_id' => '1'
+        ];
 
-       $response = $this->post(route('companies.store',$params));
-       $response->assertRedirect(route('companies.create'));
+        $response = $this->post(route('companies.store', $params));
+        $response->assertRedirect(route('companies.create'));
 
-       $this->assertDatabaseHas('companies',$params);
-   }
+        $this->assertDatabaseHas('companies', $params);
+    }
 
-    public function testAllowCompanieEdit(){
+    public function testAllowCompanieEdit()
+    {
         $companie = Companie::factory()->create();
 
-        $response = $this->get(route('companies.edit',$companie->id));
+        $response = $this->get(route('companies.edit', $companie->id));
         $response->assertOk();
         $response->assertViewIs('companie.edit');
-
     }
 
-   public function testAllowCompanieUpdate()
-   {
-       $companie = Companie::factory()->create();
-
-       $params = [
-        'name' => 'xiomi',
-        'email' => 'xiomi@gmail.com',
-        'website' => 'xiomi.com',
-       ];
-
-       $response = $this->put(route('companies.update',$companie->id),$params);
-       $response->assertRedirect(route('companies.edit',$companie->id));
-
-       $params['name'] = 'xiomi';
-    
-       $this->assertDatabaseHas('companies',$params);
-   }
-
-    public function testAllowCompanieDelete(){
+    public function testAllowCompanieUpdate()
+    {
         $companie = Companie::factory()->create();
 
-        $response = $this->get(route('companies.destroy',$companie->id));
-        $response->assertRedirect(route('companies.index'));
+        $params = [
+            'name' => 'xiomi',
+            'email' => 'xiomi@gmail.com',
+            'website' => 'xiomi.com',
+            'created_by_id' => '1',
+            'updated_by_id' => '1'
+        ];
 
-        $this->assertDatabaseMissing('companies',['id' => $companie->id]);
+        $response = $this->put(route('companies.update', $companie->id), $params);
+        $response->assertRedirect(route('companies.edit', $companie->id));
+
+        $params['name'] = 'xiomi';
+
+        $this->assertDatabaseHas('companies', $params);
     }
 
+    public function testAllowCompanieDelete()
+    {
+        $companie = Companie::factory()->create();
+
+        $response = $this->get(route('companies.destroy', $companie->id));
+        $response->assertRedirect(route('companies.index'));
+
+        $this->assertDatabaseMissing('companies', ['id' => $companie->id]);
+    }
 }

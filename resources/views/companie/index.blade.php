@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-{{ __('companie.title1') }}
+{{ trans('companie.title1') }}
 @endsection
 @section('content')
 <div class="container">
@@ -11,35 +11,35 @@
         <div class="col-md-12 mt-2">
             <div class="card">
                 <div class="card-header">
-                    {{ __('companie.title1') }}
-                    <a href="{{ route('companies.create') }}" class="btn btn-sm btn-primary float-right">{{ __('companie.btn1') }}</a>
+                    {{ trans('companie.title1') }}
+                    <a href="{{ route('companies.create') }}" class="btn btn-sm btn-primary float-right">{{ trans('companie.btn1') }}</a>
                 </div>
                 <div class="card-body">
                     <br>
                     <!-- MULAI DATE RANGE PICKER -->
                     <div class="row input-daterange">
                         <div class="col-md-4">
-                            <input type="text" name="from_date" id="from_date" class="form-control" placeholder="{{ __('companie.fromdate') }}" readonly />
+                            <input type="text" name="from_date" id="from_date" class="form-control" placeholder="{{ trans('companie.fromdate') }}" readonly />
                         </div>
                         <div class="col-md-4">
-                            <input type="text" name="to_date" id="to_date" class="form-control" placeholder="{{ __('companie.todate') }}" readonly />
+                            <input type="text" name="to_date" id="to_date" class="form-control" placeholder="{{ trans('companie.todate') }}" readonly />
                         </div>
                         <div class="col-md-4">
-                            <button type="button" name="filter" id="filter" class="btn btn-primary">{{ __('companie.btn6') }}</button>
-                            <button type="button" name="refresh" id="refresh" class="btn btn-default">{{ __('companie.btn7') }}</button>
+                            <button type="button" name="filter" id="filter" class="btn btn-primary">{{ trans('companie.btn6') }}</button>
+                            <button type="button" name="refresh" id="refresh" class="btn btn-default">{{ trans('companie.btn7') }}</button>
                         </div>
                     </div>
                     <!-- AKHIR DATE RANGE PICKER -->
                     <br>
                 <div class="row">
                         <div class="col-md-4">
-                            <input type="text"   class="form-control filter-input" placeholder="{{ __('companie.filtername') }}" data-column="1"/>
+                            <input type="text"   class="form-control filter-input" placeholder="{{ trans('companie.filtername') }}" data-column="1"/>
                         </div>
                         <div class="col-md-4">
-                            <input type="text"   class="form-control filter-input" placeholder="{{ __('companie.filteremail') }}" data-column="2"/>
+                            <input type="text"   class="form-control filter-input" placeholder="{{ trans('companie.filteremail') }}" data-column="2"/>
                         </div>
                         <div class="col-md-4">
-                            <input type="text"   class="form-control filter-input" placeholder="{{ __('companie.filterwebsite') }}" data-column="4"/>
+                            <input type="text"   class="form-control filter-input" placeholder="{{ trans('companie.filterwebsite') }}" data-column="4"/>
                         </div>
                 
                     </div> 
@@ -49,13 +49,13 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>{{ __('companie.table1') }}</th>
-                                <th>{{ __('companie.table2') }}</th>
-                                <th>{{ __('companie.table3') }}</th>
-                                <th>{{ __('companie.table4') }}</th>
-                                <th>{{ __('companie.table5') }}</th>
-                                <th>{{ __('companie.table6') }}</th>
-                                <th>{{ __('companie.table7') }}</th>
+                                <th>{{ trans('companie.table1') }}</th>
+                                <th>{{ trans('companie.table2') }}</th>
+                                <th>{{ trans('companie.table3') }}</th>
+                                <th>{{ trans('companie.table4') }}</th>
+                                <th>{{ trans('companie.table5') }}</th>
+                                <th>{{ trans('companie.table6') }}</th>
+                                <th>{{ trans('companie.table7') }}</th>
                             </tr>
                         </thead>
                         <tbody>

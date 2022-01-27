@@ -30,5 +30,6 @@ class SendEmailDemo extends Mailable
     {
         return $this->subject('Welcome to The Family')            
             ->view('email.demo');
+            
     }
 }

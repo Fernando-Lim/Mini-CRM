@@ -21,11 +21,11 @@ class CreateEmployeesTable extends Migration
             $table->string('email');
             $table->string('phone');
             $table->timestamps();
-            $table->unsignedBigInteger('created_by_id')->nullable()->index();
-            $table->unsignedBigInteger('updated_by_id')->nullable()->index();
+            // $table->unsignedBigInteger('created_by_id')->nullable()->index();
+            // $table->unsignedBigInteger('updated_by_id')->nullable()->index();
 
-            $table->foreign('created_by_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('updated_by_id')->references('id')->on('users')->onDelete('cascade');
+            // $table->foreign('created_by_id')->references('id')->on('users')->onDelete('cascade');
+            // $table->foreign('updated_by_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
