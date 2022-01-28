@@ -55,6 +55,8 @@ class CompanieTest extends TestCase
         $this->assertDatabaseHas('companies', $params);
     }
 
+    
+
     public function testAllowCompanieEdit()
     {
         $companie = Companie::factory()->create();

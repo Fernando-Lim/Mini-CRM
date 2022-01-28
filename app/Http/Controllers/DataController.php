@@ -31,9 +31,9 @@ class DataController extends Controller
 
         return response()->json(compact('employee'), 200);
     }
-    public function getEmployeesTest()
+    public function getEmployeesTestPermissions()
     {
-        
+
 
 
         $employee = Employee::with(['companie' => function ($query) {
@@ -42,5 +42,20 @@ class DataController extends Controller
         $employee = $employee->where('companie_id', '1')->get();
 
         return response()->json(compact('employee'), 200);
+    }
+    public function getEmployeesTest()
+    {
+
+
+
+        $employee = Employee::factory()->create();
+        $employee = $employee->where('companie_id', '7')->get('');
+
+
+        if ($employee->first()) {
+            return response()->json(compact('employee'), 200);
+        } else {
+            return response()->json(['error' => 'invalid'], 401);
+        }
     }
 }

@@ -23,6 +23,8 @@ class EmployeeController extends Controller
         return view('employee.index');
     }
 
+    
+
     /**
      * Show the form for creating a new resource.
      *

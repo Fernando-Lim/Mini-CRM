@@ -22,7 +22,7 @@ class EmployeeApiController extends Controller
                 if ($request->from_date === $request->to_date) {
                     //kita filter tanggalnya sesuai dengan request from_date
                     
-                    // $employee = Employee::whereDate('created_at', '=', $request->from_date)->get();
+
                     $employee = Employee::with(['companie' => function ($query) {
                         $query->select(['id', 'name']);
                     }])->select('id', 'first_name', 'last_name', 'email', 'phone', 'companie_id', 'created_at', 'updated_at');
@@ -32,7 +32,7 @@ class EmployeeApiController extends Controller
                     $employee = Employee::with(['companie' => function ($query) {
                         $query->select(['id', 'name']);
                     }])->select('id', 'first_name', 'last_name', 'email', 'phone', 'companie_id', 'created_at', 'updated_at');
-                    // $employee = Employee::whereBetween('created_at', array($request->from_date, $request->to_date))->get();
+
                     $employee = $employee->whereDate('created_at', array($request->from_date, $request->to_date))->get();
                 }
             } //Load data default
@@ -73,6 +73,7 @@ class EmployeeApiController extends Controller
         $employees = Employee::with('companie')->get();
         return EmployeeResource::collection($employees);
     }
+    
 
     public function show(Employee $employee)
     {

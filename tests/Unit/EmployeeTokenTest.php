@@ -4,7 +4,6 @@ namespace Tests\Unit;
 
 
 use Tests\TestCase;
-use Spatie\TranslationLoader\LanguageLine;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\User;
@@ -36,24 +35,32 @@ class EmployeeTokenTest extends TestCase
 
     public function user() : User
     {
-        $user = User::create([
+        return User::create([
             'name' => ('admin'),
             'email' => ('admin@admin.com'),
             'password' => ('password'),
         ]);
 
-        return $user;
     }
 
-    public function testAllowGetEmployee()
+    public function testAllowGetEmployeePermission()
     {
         $token = $this->getTokenForUser($this->user());
+
+
+        $this->postJson(route('loadEmployeesTestPermissions'), [], ['Authorization' => "Bearer $token"])
+            ->assertStatus(200)
+            ->assertJsonStructure(['employee']);
+    }
+    public function testAllowGetEmployeeFromCompanyId()
+    {
+        $token = $this->getTokenForUser($this->user());
+
 
         $this->postJson(route('loadEmployeesTest'), [], ['Authorization' => "Bearer $token"])
             ->assertStatus(200)
             ->assertJsonStructure(['employee']);
     }
-
 
 
 }

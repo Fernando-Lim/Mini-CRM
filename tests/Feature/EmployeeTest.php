@@ -39,6 +39,8 @@ class EmployeeTest extends TestCase
         $response->assertViewIs('employee.create');
     }
 
+    
+
     public function testAllowEmployeeStore()
     {
         $params = [
@@ -56,6 +58,8 @@ class EmployeeTest extends TestCase
 
         $this->assertDatabaseHas('employees', $params);
     }
+
+
 
     public function testAllowEmployeeEdit()
     {

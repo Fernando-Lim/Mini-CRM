@@ -36,6 +36,7 @@ Route::group(['middleware' => ['jwt.verify']], function(){
     Route::get('user', 'App\Http\Controllers\UserController@getAuthenticatedUser');
     Route::get('closed', 'App\Http\Controllers\DataController@closed');
     Route::post('loadEmployees', 'App\Http\Controllers\DataController@getEmployees');
+    Route::post('loadEmployeesTestPermissions', 'App\Http\Controllers\DataController@getEmployeesTestPermissions')->name('loadEmployeesTestPermissions');
     Route::post('loadEmployeesTest', 'App\Http\Controllers\DataController@getEmployeesTest')->name('loadEmployeesTest');
 });
 
