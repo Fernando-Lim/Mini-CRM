@@ -59,6 +59,9 @@
                         @else
                         <x-companies />
                         <x-employees />
+                        <x-items/>
+                        <x-sells/>
+                        <x-sellsummary/>
 
                         <li class="nav-item dropdown">
 
@@ -67,7 +70,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                                    document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
 
@@ -92,18 +95,18 @@
                         <li class="nav-item dropdown">
                             @if(empty(Session::get('tz')))
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    UTC
-                                </a>
-                                @else
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Session::get('tz') }}
-                                </a>
-                                @endif
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style="max-height: 200px; overflow: auto;">
-                                    @foreach (timezone_identifiers_list() as $timezone)
-                                    <a class="dropdown-item" href="{{ route('tz.switch', str_replace('/', ' ', $timezone)) }}">{{ $timezone }}</a>
-                                    @endforeach
-                                </div>
+                                UTC
+                            </a>
+                            @else
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Session::get('tz') }}
+                            </a>
+                            @endif
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style="max-height: 200px; overflow: auto;">
+                                @foreach (timezone_identifiers_list() as $timezone)
+                                <a class="dropdown-item" href="{{ route('tz.switch', str_replace('/', ' ', $timezone)) }}">{{ $timezone }}</a>
+                                @endforeach
+                            </div>
                         </li>
 
                         @endguest

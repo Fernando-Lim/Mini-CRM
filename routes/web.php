@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CompanieController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\Auth\SocialiteController;
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\SellController;
+use App\Http\Controllers\SellSummaryController;
 use App\Jobs\SendEmailJob;
 use Illuminate\Support\Facades\Auth;
 
@@ -39,10 +42,15 @@ Route::middleware('auth')->group(function(){
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     Route::resource('employees',EmployeeController::class)->except(['destroy']);
+    Route::resource('sells',SellController::class)->except(['destroy']);
     Route::get('/employees/{employee}/destroy',[EmployeeController::class,'destroy'])->name('employees.destroy');
     
     Route::resource('companies',CompanieController::class)->except(['destroy']);
-    
+    Route::resource('items',ItemController::class)->except(['destroy']);
+    Route::resource('sellSummaries',SellSummaryController::class)->except(['destroy']);
+    Route::get('/items/{item}/destroy',[ItemController::class,'destroy'])->name('items.destroy');
+    Route::get('/sells/{sell}/destroy',[SellController::class,'destroy'])->name('sells.destroy');
+
     Route::get('/companies/{company}/destroy',[CompanieController::class,'destroy'])->name('companies.destroy');
     
     Route::get('test/email', function(){

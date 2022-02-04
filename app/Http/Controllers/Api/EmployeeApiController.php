@@ -39,7 +39,8 @@ class EmployeeApiController extends Controller
             else {
                 $employee = Employee::with(['companie' => function ($query) {
                     $query->select(['id', 'name']);
-                }])->select('id', 'first_name', 'last_name', 'email', 'phone', 'companie_id', 'created_at', 'updated_at')->latest()->get();
+                }]);
+                $employee = $employee->select('id', 'first_name', 'last_name', 'email', 'phone', 'companie_id', 'created_at', 'updated_at')->latest()->get();
             }
 
             return datatables()->of($employee)

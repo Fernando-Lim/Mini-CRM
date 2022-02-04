@@ -4,6 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\CompanieApiController;
 use App\Http\Controllers\Api\EmployeeApiController;
+use App\Http\Controllers\Api\ItemApiController;
+use App\Http\Controllers\Api\SellApiController;
+use App\Http\Controllers\Api\SellSummaryApiController;
 use App\Http\Controllers\EmployeeController;
 use GuzzleHttp\Middleware;
 
@@ -21,10 +24,15 @@ use GuzzleHttp\Middleware;
 
 Route::get('/getEmployees', [EmployeeApiController::class,'getEmployees'])->name('api.employees');
 Route::get('/getCompanies', [CompanieApiController::class,'getCompanies'])->name('api.companies');
+Route::get('/getItems', [ItemApiController::class,'getItems'])->name('api.items');
+Route::get('/getSells', [SellApiController::class,'getSells'])->name('api.sells');
+Route::get('/getSellSummaries', [SellSummaryApiController::class,'getSellSummaries'])->name('api.sellSummaries');
 
 Route::apiResource('employees', EmployeeApiController::class)->only(['index','show']);
 Route::apiResource('companies', CompanieApiController::class)->only(['index','show']);
-
+Route::apiResource('items', ItemApiController::class)->only(['index','show']);
+Route::apiResource('sells', SellApiController::class)->only(['index','show']);
+Route::apiResource('sellSummaries', SellSummaryApiController::class)->only(['index','show']);
 
 
 

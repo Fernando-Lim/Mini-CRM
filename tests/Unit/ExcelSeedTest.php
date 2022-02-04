@@ -16,7 +16,7 @@ class ExcelSeedTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->artisan('db:seed',['--class' => 'TestExcelSeeder']);
+        $this->artisan('db:seed', ['--class' => 'TestExcelSeeder']);
         $this->user = User::factory()->create();
         $this->actingAs($this->user);
     }
@@ -27,22 +27,37 @@ class ExcelSeedTest extends TestCase
      */
     public function testAllowCompanieSeed()
     {
-        
+
         $this->assertDatabaseHas('companies', [
             'name' => 'suryakopi',
         ]);
-
-        
-        
     }
     public function testAllowEmployeeSeed()
     {
-        
+
         $this->assertDatabaseHas('employees', [
             'first_name' => 'Fernando',
         ]);
+    }
+    public function testAllowItemSeed()
+    {
 
-        
-        
+        $this->assertDatabaseHas('items', [
+            'name' => 'Espresso',
+        ]);
+    }
+    public function testAllowSellSeed()
+    {
+
+        $this->assertDatabaseHas('sells', [
+            'price' => '20000',
+        ]);
+    }
+    public function testAllowSummarySeed()
+    {
+
+        $this->assertDatabaseHas('sell_summaries', [
+            'employee_id' => '1',
+        ]);
     }
 }
