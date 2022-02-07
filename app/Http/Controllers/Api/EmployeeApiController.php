@@ -26,14 +26,14 @@ class EmployeeApiController extends Controller
                     $employee = Employee::with(['companie' => function ($query) {
                         $query->select(['id', 'name']);
                     }])->select('id', 'first_name', 'last_name', 'email', 'phone', 'companie_id', 'created_at', 'updated_at');
-                    $employee = $employee->whereDate('created_at', '=', $request->from_date)->get();
+                    $employee = $employee->whereDate('created_at', '=', $request->from_date)->latest()->get();
                 } else {
                     //kita filter dari tanggal awal ke akhir
                     $employee = Employee::with(['companie' => function ($query) {
                         $query->select(['id', 'name']);
                     }])->select('id', 'first_name', 'last_name', 'email', 'phone', 'companie_id', 'created_at', 'updated_at');
 
-                    $employee = $employee->whereDate('created_at', array($request->from_date, $request->to_date))->get();
+                    $employee = $employee->whereBetween('created_at', array($request->from_date, $request->to_date))->latest()->get();
                 }
             } //Load data default
             else {

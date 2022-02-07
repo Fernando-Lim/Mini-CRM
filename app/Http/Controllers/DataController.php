@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Employee;
+use App\Models\Companie;
 
 class DataController extends Controller
 {
@@ -23,7 +24,7 @@ class DataController extends Controller
     {
         $getCompanyId = $request->only('company_id');
 
-
+        
         $employee = Employee::with(['companie' => function ($query) {
             $query->select(['id', 'name']);
         }])->select('id', 'first_name', 'last_name', 'email', 'phone', 'companie_id', 'created_at', 'updated_at');
@@ -47,9 +48,10 @@ class DataController extends Controller
     {
 
 
-
+        Companie::factory()->create();
         $employee = Employee::factory()->create();
-        $employee = $employee->where('companie_id', '7')->get('');
+        
+        $employee = $employee->where('companie_id', '1')->get('');
 
 
         if ($employee->first()) {

@@ -27,35 +27,35 @@ class SellSummaryApiController extends Controller
 
 
                     $sellSummary = SellSummary::with(['employee' => function ($query) {
-                        $query->select(['id', 'first_name','companie_id']);
+                        $query->select(['id', 'first_name', 'companie_id']);
                     }])->select('id', 'date', 'employee_id', 'created_at', 'updated_at', 'price_total', 'discount_total', 'total');
-                    $sellSummary = $sellSummary->whereDate('date', '=', $request->from_date)->get();
+                    $sellSummary = $sellSummary->whereDate('date', '=', $request->from_date)->latest()->get();
                 } else {
                     //kita filter dari tanggal awal ke akhir
                     $sellSummary = SellSummary::with(['employee' => function ($query) {
-                        $query->select(['id', 'first_name','companie_id']);
+                        $query->select(['id', 'first_name', 'companie_id']);
                     }])->select('id', 'date', 'employee_id', 'created_at', 'updated_at', 'price_total', 'discount_total', 'total');
-                    $sellSummary = $sellSummary->whereBetween('date',[$request->from_date,$request->to_date])->get();
+                    $sellSummary = $sellSummary->whereBetween('date', [$request->from_date, $request->to_date])->latest()->get();
                 }
             } //Load data default
             else {
                 $sellSummary = SellSummary::with(['employee' => function ($query) {
-                    $query->select(['id', 'first_name','companie_id']);
+                    $query->select(['id', 'first_name', 'companie_id']);
                 }]);
 
-                $sellSummary = $sellSummary->select('id', 'date', 'employee_id', 'created_at', 'updated_at', 'price_total', 'discount_total', 'total')->get();
+                $sellSummary = $sellSummary->select('id', 'date', 'employee_id', 'created_at', 'updated_at', 'price_total', 'discount_total', 'total')->latest()->get();
             }
 
             return datatables()->of($sellSummary)
                 ->addIndexColumn()
                 ->addColumn("date", function ($sellSummary) {
-                    return '<h6><a href="/sellSummaries/' . $sellSummary->id .'/edit">'. $sellSummary->date .'</a></h6>';
+                    return '<h6><a href="/sellSummaries/' . $sellSummary->id . '/edit">' . $sellSummary->date . '</a></h6>';
                 })
                 ->addColumn("company", function ($sellSummary) {
                     $findEmployee = Employee::where('id', '=', $sellSummary->employee_id)->first();
-                    $getCompanyID = empty($findEmployee)? 0 : $findEmployee->companie_id;
+                    $getCompanyID = empty($findEmployee) ? 0 : $findEmployee->companie_id;
                     $findCompany = Companie::where('id', '=', $getCompanyID)->first();
-                    return empty($findCompany)? 0 : $findCompany->name;
+                    return empty($findCompany) ? 0 : $findCompany->name;
                 })
                 ->addColumn("created_at", function ($sellSummary) {
                     $value = Session::get('tz', 'UTC');
@@ -69,7 +69,7 @@ class SellSummaryApiController extends Controller
                     $date->setTimezone($value);
                     return $date;
                 })
-                ->rawColumns(['date','company','created_at', 'updated_at'])
+                ->rawColumns(['date', 'company', 'created_at', 'updated_at'])
                 ->make(true);
         }
         return view('sellSummary.index');
@@ -77,13 +77,13 @@ class SellSummaryApiController extends Controller
 
     public function index()
     {
-        $sellSummaries = SellSummary::with('employee','companie')->get();
+        $sellSummaries = SellSummary::with('employee', 'companie')->get();
         return SellSummaryResource::collection($sellSummaries);
     }
 
 
     public function show(SellSummary $sellSummary)
     {
-        return new SellSummaryResource($sellSummary->load(['employee','companie']));
+        return new SellSummaryResource($sellSummary->load(['employee', 'companie']));
     }
 }

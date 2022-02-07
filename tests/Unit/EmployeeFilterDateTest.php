@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-
+use App\Models\Companie;
 use Tests\TestCase;
 use Spatie\TranslationLoader\LanguageLine;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -20,9 +20,10 @@ class EmployeeFilterDateTest extends TestCase
 
     public function testAllowEmployeeFilterDate()
     {
+        Companie::factory()->create();
         $employee = Employee::factory()->create();
 
-        $employee = $employee->whereBetween('created_at', array('2019-01-23 04:30:42', '2023-01-23 04:30:42'))->get('');
+        $employee = $employee->whereBetween('created_at', array('2019-01-23 04:30:42', '2023-02-23 04:30:42'))->get('');
 
         $this->assertNotEmpty($employee);
     }

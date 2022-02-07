@@ -26,7 +26,7 @@
 " readonly />
                         </div>
                         <div class="col-md-4">
-                            <button type="button" name="filter" id="filter" class="btn btn-primary">{{trans('sellSummary.btn1') }}
+                            <button type="button" name="filter" id="filter" class="btn btn-primary">{{trans('sellSummary.btn2') }}
                             </button>
                             <button type="button" name="refresh" id="refresh" class="btn btn-default">{{trans('sellSummary.btn3') }}
                             </button>
@@ -36,7 +36,8 @@
                     <br>
                     <div class="row">
                         <div class="col-md-4">
-                            <select data-column="2" class="form-control filter-select">
+                        <input list="company" type="text" class="form-control filter-input" placeholder="{{trans('sellSummary.filtercompany') }}" data-column="2" />
+                            <datalist   data-column="2" id="company">
                                 <option value="">{{trans('sellSummary.filtercompany') }}
                                 </option>
                                 @forelse ($companies as $companie)
@@ -45,17 +46,18 @@
                                 <option value="" selected>{{trans('sellSummary.status1') }}
                                 </option>
                                 @endforelse
-                            </select>
+                            </datalist>
                         </div>
                         <div class="col-md-4">
-                            <select data-column="3" class="form-control filter-select">
+                        <input list="employee" type="text" class="form-control filter-input" placeholder="{{trans('sellSummary.filtername') }}" data-column="3" />
+                            <datalist data-column="3" id="employee">
                                 <option value="">{{trans('sellSummary.filtername') }}</option>
                                 @forelse ($employees as $employee)
                                 <option value="{{ $employee->first_name }}">{{ $employee->first_name }}</option>
                                 @empty
                                 <option value="" selected>{{trans('sellSummary.status1') }}</option>
                                 @endforelse
-                            </select>
+                            </datalist>
                         </div>
 
                     </div>
@@ -132,7 +134,7 @@
                 }
             ]
         });
-        $('.filter-select').change(function() {
+        $('.filter-input').keyup(function() {
             table.column($(this).data('column'))
                 .search($(this).val())
                 .draw();
@@ -212,7 +214,7 @@
                 }
             ]
         });
-        $('.filter-select').change(function() {
+        $('.filter-input').keyup(function() {
             table.column($(this).data('column'))
                 .search($(this).val())
                 .draw();

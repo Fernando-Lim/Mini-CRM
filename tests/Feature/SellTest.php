@@ -9,6 +9,7 @@ use App\Models\Sell;
 use App\Models\Employee;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
+use App\Models\Companie;
 
 class SellTest extends TestCase
 {
@@ -46,6 +47,7 @@ class SellTest extends TestCase
 
     public function testAllowSellStore()
     {
+        Companie::factory()->create();
         Employee::factory()->create();
         Item::factory()->create();
         $params = [
@@ -66,6 +68,7 @@ class SellTest extends TestCase
 
     public function testAllowSellEdit()
     {
+        Companie::factory()->create();
         Employee::factory()->create();
         Item::factory()->create();
         $sell = Sell::factory()->create();
@@ -77,6 +80,7 @@ class SellTest extends TestCase
 
     public function testAllowSellUpdate()
     {
+        Companie::factory()->create();
         Employee::factory()->create();
         Item::factory()->create();
         $sell = Sell::factory()->create();
@@ -99,6 +103,7 @@ class SellTest extends TestCase
 
     public function testAllowSellDelete()
     {
+        Companie::factory()->create();
         Employee::factory()->create();
         Item::factory()->create();
         $sell = Sell::factory()->create();

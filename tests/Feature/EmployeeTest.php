@@ -6,6 +6,7 @@ use Tests\TestCase;
 use App\Models\User;
 use App\Models\Employee;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Models\Companie;
 
 class EmployeeTest extends TestCase
 {
@@ -39,15 +40,16 @@ class EmployeeTest extends TestCase
         $response->assertViewIs('employee.create');
     }
 
-    
+
 
     public function testAllowEmployeeStore()
     {
+        Companie::factory()->create();
         $params = [
             'first_name' => 'izzan',
             'last_name' => 'ka',
             'email' => 'izzan@gmail.com',
-            'companie_id' => 7,
+            'companie_id' => 1,
             'phone' => 949494949494,
             'created_by_id' => '1',
             'updated_by_id' => '1'
@@ -63,6 +65,7 @@ class EmployeeTest extends TestCase
 
     public function testAllowEmployeeEdit()
     {
+        Companie::factory()->create();
         $employee = Employee::factory()->create();
 
         $response = $this->get(route('employees.edit', $employee->id));
@@ -72,13 +75,15 @@ class EmployeeTest extends TestCase
 
     public function testAllowEmployeeUpdate()
     {
+
+        Companie::factory()->create();
         $employee = Employee::factory()->create();
 
         $params = [
             'first_name' => 'Updated',
             'last_name' => 'ka',
             'email' => 'izzan@gmail.com',
-            'companie_id' => 7,
+            'companie_id' => 1,
             'phone' => 949494949494,
             'created_by_id' => '1',
             'updated_by_id' => '1'
@@ -94,6 +99,7 @@ class EmployeeTest extends TestCase
 
     public function testAllowEmployeeDelete()
     {
+        Companie::factory()->create();
         $employee = Employee::factory()->create();
 
         $response = $this->get(route('employees.destroy', $employee->id));

@@ -39,6 +39,7 @@ class SellSummaryTest extends TestCase
 
     public function testAllowSellSummaryStore()
     {
+        Companie::factory()->create();
         Employee::factory()->create();
         Item::factory()->create();
         SellSummary::factory()->create();
