@@ -49,16 +49,13 @@ class SellSummaryApiController extends Controller
             return datatables()->of($sellSummary)
                 ->addIndexColumn()
                 ->addColumn("price_total", function ($sellSummary) {
-                    $value = number_format($sellSummary->price_total,2);
-                    return $value;
+                    return number_format($sellSummary->price_total, 2);
                 })
                 ->addColumn("discount_total", function ($sellSummary) {
-                    $value = number_format($sellSummary->discount_total,2);
-                    return $value;
+                    return number_format($sellSummary->discount_total, 2);
                 })
                 ->addColumn("total", function ($sellSummary) {
-                    $value = number_format($sellSummary->total,2);
-                    return $value;
+                    return number_format($sellSummary->total, 2);
                 })
                 ->addColumn("date", function ($sellSummary) {
                     return '<h6><a href="/sellSummaries/' . $sellSummary->id . '/edit">' . $sellSummary->date . '</a></h6>';

@@ -33,7 +33,7 @@ class SellApiController extends Controller
                         $query->select(['id', 'name']);
                     }]);
                     $sell = $sell->select('id', 'date', 'item_id', 'price', 'discount', 'employee_id');
-                    $sell = $sell->whereDate('date', '=', $request->from_date)->orderBy('date','DESC')->get();
+                    $sell = $sell->whereDate('date', '=', $request->from_date)->orderBy('date', 'DESC')->get();
                 } else {
                     //kita filter dari tanggal awal ke akhir
                     $sell = Sell::with(['employee' => function ($query) {
@@ -43,7 +43,7 @@ class SellApiController extends Controller
                         $query->select(['id', 'name']);
                     }]);
                     $sell = $sell->select('id', 'date', 'item_id', 'price', 'discount', 'employee_id');
-                    $sell = $sell->whereBetween('date',[$request->from_date,$request->to_date])->orderBy('date','DESC')->get();
+                    $sell = $sell->whereBetween('date', [$request->from_date, $request->to_date])->orderBy('date', 'DESC')->get();
                 }
             } //Load data default
             else {
@@ -53,14 +53,13 @@ class SellApiController extends Controller
                 $sell = $sell->with(['item' => function ($query) {
                     $query->select(['id', 'name']);
                 }]);
-                $sell = $sell->select('id', 'date', 'item_id', 'price', 'discount', 'employee_id')->orderBy('date','DESC')->get();
+                $sell = $sell->select('id', 'date', 'item_id', 'price', 'discount', 'employee_id')->orderBy('date', 'DESC')->get();
             }
 
             return datatables()->of($sell)
                 ->addIndexColumn()
                 ->addColumn("price", function ($sell) {
-                    $value = number_format($sell->price,2);
-                    return $value;
+                    return number_format($sell->price, 2);
                 })
                 ->addColumn("date", function ($sell) {
                     $value = Session::get('tz', 'UTC');

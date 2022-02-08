@@ -35,17 +35,16 @@ class ItemApiController extends Controller
             return datatables()->of($item)
                 ->addIndexColumn()
                 ->addColumn("price", function ($item) {
-                    $value = number_format($item->price,2);
-                    return $value;
+                    return number_format($item->price, 2);
                 })
                 ->addColumn("created_at", function ($item) {
-                    $value = Session::get('tz','UTC');
+                    $value = Session::get('tz', 'UTC');
                     $date = Carbon::createFromFormat('Y-m-d H:i:s', $item->created_at, 'UTC');
                     $date->setTimezone($value);
                     return $date;
                 })
                 ->addColumn("updated_at", function ($item) {
-                    $value = Session::get('tz','UTC');
+                    $value = Session::get('tz', 'UTC');
                     $date = Carbon::createFromFormat('Y-m-d H:i:s', $item->updated_at, 'UTC');
                     $date->setTimezone($value);
                     return $date;
