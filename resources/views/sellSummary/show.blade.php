@@ -54,8 +54,8 @@
                                 <tr>
                                     <td> {{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $sell->date, 'UTC')->setTimezone(Session::get('tz', 'UTC'))}} </td>
                                     <td> {{$sell->item->name}} </td>
-                                    <td> {{$sell->price}} </td>
-                                    <td> {{$sell->discount}} </td>
+                                    <td> @currency($sell->price) </td>
+                                    <td> @currency($sell->discount) </td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -63,17 +63,17 @@
                     <div class="row">
                         <div class="col-4">
                             <label for="">{{trans('sellSummary.table6') }}</label>
-                            <input type="text" class="form-control" name="name" value="{{ $sellSummary->price_total }}" readonly>
+                            <input type="text" class="form-control" name="name" value="@currency($sellSummary->price_total)" readonly>
                             @include('layouts.error', ['name' => 'name'])
                         </div>
                         <div class="col-4">
                             <label for=""> {{trans('sellSummary.table7') }}</label>
-                            <input type="email" class="form-control" name="email" value="{{ $sellSummary->discount_total }}" readonly>
+                            <input type="email" class="form-control" name="email" value="@currency($sellSummary->discount_total)" readonly>
                             @include('layouts.error', ['name' => 'email'])
                         </div>
                         <div class="col-4">
                             <label for=""> {{trans('sellSummary.table8') }}</label>
-                            <input type="email" class="form-control" name="email" value="{{ $sellSummary->total }}" readonly>
+                            <input type="email" class="form-control" name="email" value="@currency($sellSummary->total) " readonly>
                             @include('layouts.error', ['name' => 'email'])
                         </div>
                     </div>

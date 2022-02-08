@@ -58,6 +58,10 @@ class SellApiController extends Controller
 
             return datatables()->of($sell)
                 ->addIndexColumn()
+                ->addColumn("price", function ($sell) {
+                    $value = number_format($sell->price,2);
+                    return $value;
+                })
                 ->addColumn("date", function ($sell) {
                     $value = Session::get('tz', 'UTC');
                     $date = Carbon::createFromFormat('Y-m-d H:i:s', $sell->date, 'UTC');

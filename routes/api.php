@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\EmployeeApiController;
 use App\Http\Controllers\Api\ItemApiController;
 use App\Http\Controllers\Api\SellApiController;
 use App\Http\Controllers\Api\SellSummaryApiController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\EmployeeController;
 use GuzzleHttp\Middleware;
 
