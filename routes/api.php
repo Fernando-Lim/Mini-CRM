@@ -49,11 +49,7 @@ Route::group(['middleware' => ['jwt.verify']], function(){
 });
 
 
-// Route::get('employee', 'EmployeeController@employee');
-// Route::get('employees', [EmployeeController::class,'employees']);
 
-// Route::get('employeeAll', 'EmployeeController@employeeAuth')->middleware('jwt.verify');
-// Route::get('user', 'UserController@getAuthenticatedUser')->middleware('jwt.verify');
 
 
 

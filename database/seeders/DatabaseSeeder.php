@@ -789,6 +789,21 @@ class DatabaseSeeder extends Seeder
             'key' => 'component-companie',
             'text' => ['en' => 'Companies', 'id' => 'Perusahaan'],
         ]);
+        LanguageLine::create([
+            'group' => 'home',
+            'key' => 'component-sell',
+            'text' => ['en' => 'Sales', 'id' => 'Penjualan'],
+        ]);
+        LanguageLine::create([
+            'group' => 'home',
+            'key' => 'component-item',
+            'text' => ['en' => 'Items', 'id' => 'Barang'],
+        ]);
+        LanguageLine::create([
+            'group' => 'home',
+            'key' => 'component-summary',
+            'text' => ['en' => 'Summary', 'id' => 'Laporan Penjualan'],
+        ]);
 
 
         // \App\Models\Employee::factory(1000)->create();

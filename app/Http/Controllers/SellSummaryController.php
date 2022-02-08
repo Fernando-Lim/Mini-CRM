@@ -22,15 +22,14 @@ class SellSummaryController extends Controller
      */
     public function index()
     {
-        $employees = Employee::select('id','first_name')->latest()->get();
-        $companies = Companie::select('id','name')->latest()->get();
+        $employees = Employee::select('id', 'first_name')->latest()->get();
+        $companies = Companie::select('id', 'name')->latest()->get();
 
         // $employees = Employee::latest()->paginate(10);
         // return view('employee.index',compact('employees'));
-        return view('sellSummary.index',compact('employees','companies'));
+        return view('sellSummary.index', compact('employees', 'companies'));
     }
 
-    
 
     /**
      * Show the form for creating a new resource.
@@ -39,21 +38,21 @@ class SellSummaryController extends Controller
      */
     public function create()
     {
-        $employees = Employee::select('id','first_name')->latest()->get();
-        $sells = Sell::select('id', 'date', 'item_id','price','discount','employee_id')->get();
-        $items = Item::select('id', 'name','price')->get();
-        return view('sellSummary.index',compact('employees','sells','items'));
+        $employees = Employee::select('id', 'first_name')->latest()->get();
+        $sells = Sell::select('id', 'date', 'item_id', 'price', 'discount', 'employee_id')->get();
+        $items = Item::select('id', 'name', 'price')->get();
+        return view('sellSummary.index', compact('employees', 'sells', 'items'));
     }
 
     public function edit(SellSummary $sellSummary)
     {
         $employees = Employee::with(['companie' => function ($query) {
             $query->select(['id', 'name']);
-        }])->select('id', 'first_name','companie_id')->get();
+        }])->select('id', 'first_name', 'companie_id')->get();
         // $employees = Employee::select('id', 'first_name','companie_id')->get();
         $sells = Sell::with(['item' => function ($query) {
             $query->select(['id', 'name']);
-        }])->select('id', 'date', 'item_id','price','discount','employee_id');
+        }])->select('id', 'date', 'item_id', 'price', 'discount', 'employee_id');
         $sells = $sells->whereDate('date', '=', Carbon::parse($sellSummary->date)->format('Y-m-d'))->where('employee_id', '=', $sellSummary->employee_id)->get();
         return view('sellSummary.show', compact('sellSummary', 'employees', 'sells'));
     }
@@ -68,7 +67,4 @@ class SellSummaryController extends Controller
     {
         //
     }
-
-
-
 }

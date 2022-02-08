@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Employee;
 use App\Models\Sell;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Carbon;
 
 class SellFactory extends Factory
 {
@@ -23,7 +24,7 @@ class SellFactory extends Factory
     public function definition()
     {
         return [
-            'date'=> 2022-02-02,
+            'date'=> Carbon::now()->toDateTimeString(),
             'item_id'=> '1',
             'price' => 20000,
             'discount' => 10,

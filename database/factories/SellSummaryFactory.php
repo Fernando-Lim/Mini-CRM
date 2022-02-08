@@ -6,6 +6,7 @@ use App\Models\Employee;
 use App\Models\Sell;
 use App\Models\SellSummary;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Carbon;
 
 class SellSummaryFactory extends Factory
 {
@@ -24,7 +25,7 @@ class SellSummaryFactory extends Factory
     public function definition()
     {
         return [
-            'date' => 2022-01-01,
+            'date' => Carbon::now()->toDateTimeString(),
             'employee_id'=> '1',
             'price_total' => 123456,
             'discount_total'=> 123456,
