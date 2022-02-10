@@ -50,6 +50,7 @@ class EmployeeController extends Controller
             'companie_id' => $request->companie_id,
             'email' => $request->email,
             'phone' => $request->phone,
+            'password' => $request->password,
             'created_by_id' => $request->created_by_id,
             'updated_by_id' => $request->updated_by_id
         ]);
@@ -95,6 +96,7 @@ class EmployeeController extends Controller
             'companie_id' => $request->companie_id,
             'email' => $request->email,
             'phone' => $request->phone,
+            'password' => $request->password,
             'updated_by_id' => $request->updated_by_id
         ]);
 

@@ -51,6 +51,7 @@ class EmployeeTest extends TestCase
             'email' => 'izzan@gmail.com',
             'companie_id' => 1,
             'phone' => 949494949494,
+            'password' => '123456',
             'created_by_id' => '1',
             'updated_by_id' => '1'
         ];
@@ -85,6 +86,7 @@ class EmployeeTest extends TestCase
             'email' => 'izzan@gmail.com',
             'companie_id' => 1,
             'phone' => 949494949494,
+            'password' => '654321',
             'created_by_id' => '1',
             'updated_by_id' => '1'
         ];

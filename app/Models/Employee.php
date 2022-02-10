@@ -15,6 +15,7 @@ class Employee extends Model
         'companie_id',
         'email',
         'phone',
+        'password',
         'created_by_id',
         'updated_by_id'
     ];

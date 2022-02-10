@@ -29,6 +29,7 @@ class EmployeeStoreRequest extends FormRequest
             'companie_id' => 'required|numeric',
             'email' => 'required|email|string',
             'phone' => 'required|numeric|min:15',
+            'password' => 'required|min:6',
             'created_by_id' => 'required|string',
             'updated_by_id' => 'required|string'
         ];

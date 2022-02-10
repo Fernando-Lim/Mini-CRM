@@ -14,6 +14,7 @@ class UpdateAlterEmployeesTable extends Migration
     public function up()
     {
         Schema::table('employees', function (Blueprint $table) {
+            $table->string('password')->nullable();
             $table->unsignedBigInteger('created_by_id')->nullable();
             $table->unsignedBigInteger('updated_by_id')->nullable();
 

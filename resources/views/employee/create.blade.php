@@ -29,6 +29,13 @@
                                 @include('layouts.error', ['name' => 'last_name'])
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <label for="">Password</label>
+                                <input type="password" class="form-control" name="password" value="{{ old('password')}}">
+                                @include('layouts.error', ['name' => 'first_name'])
+                            </div>
+                        </div>
                         <div class="row mt-3">
                             <div class="col-md-12">
                                 <label for="">{{ trans('employee.table3') }}</label>
