@@ -27,6 +27,7 @@ class EmployeeFactory extends Factory
             'email' => $this->faker->unique()->safeEmail,
             'companie_id' => 1,
             'phone' => $this->faker->e164PhoneNumber,
+            'password' => bcrypt(123456),
             'created_by_id' => '1',
             'updated_by_id' => '1'
         ];

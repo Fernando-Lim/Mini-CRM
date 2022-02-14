@@ -33,7 +33,7 @@
                             <div class="col-12">
                                 <label for="">Password</label>
                                 <input type="password" class="form-control" name="password" value="{{ old('password')}}">
-                                @include('layouts.error', ['name' => 'first_name'])
+                                @include('layouts.error', ['name' => 'password'])
                             </div>
                         </div>
                         <div class="row mt-3">

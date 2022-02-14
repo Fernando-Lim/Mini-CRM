@@ -6,6 +6,7 @@ use App\Models\Companie;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Http\Requests\EmployeeStoreRequest;
+use App\Http\Requests\EmployeeUpdateRequest;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
@@ -50,7 +51,7 @@ class EmployeeController extends Controller
             'companie_id' => $request->companie_id,
             'email' => $request->email,
             'phone' => $request->phone,
-            'password' => $request->password,
+            'password' => bcrypt($request->password),
             'created_by_id' => $request->created_by_id,
             'updated_by_id' => $request->updated_by_id
         ]);
@@ -88,15 +89,16 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(EmployeeStoreRequest $request, Employee $employee)
+    public function update(EmployeeUpdateRequest $request, Employee $employee)
     {
+
         $employee->update([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'companie_id' => $request->companie_id,
             'email' => $request->email,
             'phone' => $request->phone,
-            'password' => $request->password,
+            // 'password' => bcrypt($request->password),
             'updated_by_id' => $request->updated_by_id
         ]);
 
