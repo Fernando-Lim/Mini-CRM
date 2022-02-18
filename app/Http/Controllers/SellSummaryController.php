@@ -22,7 +22,7 @@ class SellSummaryController extends Controller
      */
     public function index()
     {
-        $employees = Employee::select('id', 'first_name')->latest()->get();
+        $employees = Employee::select('id', 'first_name','last_name')->latest()->get();
         $companies = Companie::select('id', 'name')->latest()->get();
 
         // $employees = Employee::latest()->paginate(10);

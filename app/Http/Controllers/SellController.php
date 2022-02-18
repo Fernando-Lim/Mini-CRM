@@ -24,9 +24,11 @@ class SellController extends Controller
      */
     public function index()
     {
+        $employees = Employee::select('id', 'first_name')->latest()->get();
+        $items = Item::select('id', 'name', 'price')->get();
         // $employees = Employee::latest()->paginate(10);
         // return view('employee.index',compact('employees'));
-        return view('sell.index');
+        return view('sell.index',compact('employees','items'));
     }
 
 

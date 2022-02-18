@@ -24,36 +24,137 @@ class SellApiController extends Controller
                 //Jika tanggal awal(from_date) hingga tanggal akhir(to_date) adalah sama maka
                 if ($request->from_date === $request->to_date) {
                     //kita filter tanggalnya sesuai dengan request from_date
-
-
-                    $sell = Sell::with(['employee' => function ($query) {
-                        $query->select(['id', 'first_name']);
-                    }]);
-                    $sell = $sell->with(['item' => function ($query) {
-                        $query->select(['id', 'name']);
-                    }]);
-                    $sell = $sell->select('id', 'date', 'item_id', 'price', 'discount', 'employee_id');
-                    $sell = $sell->whereDate('date', '=', $request->from_date)->orderBy('date', 'DESC')->get();
+                    if (!empty($request->item_id) && !empty($request->employee_id)) {
+                        $sell = Sell::with(['employee' => function ($query) {
+                            $query->select(['id', 'first_name']);
+                        }]);
+                        $sell = $sell->with(['item' => function ($query) {
+                            $query->select(['id', 'name']);
+                        }]);
+                        $sell = $sell->select('id', 'date', 'item_id', 'price', 'discount', 'employee_id');
+                        $sell = $sell->whereDate('date', '=', $request->from_date)->orderBy('date', 'DESC')
+                            ->where('item_id', '=', $request->item_id)
+                            ->where('employee_id', '=', $request->employee_id)->get();
+                    } elseif (!empty($request->item_id)) {
+                        $sell = Sell::with(['employee' => function ($query) {
+                            $query->select(['id', 'first_name']);
+                        }]);
+                        $sell = $sell->with(['item' => function ($query) {
+                            $query->select(['id', 'name']);
+                        }]);
+                        $sell = $sell->select('id', 'date', 'item_id', 'price', 'discount', 'employee_id');
+                        $sell = $sell->whereDate('date', '=', $request->from_date)->orderBy('date', 'DESC')
+                            ->where('item_id', '=', $request->item_id)->get();
+                    } elseif (!empty($request->employee_id)) {
+                        $sell = Sell::with(['employee' => function ($query) {
+                            $query->select(['id', 'first_name']);
+                        }]);
+                        $sell = $sell->with(['item' => function ($query) {
+                            $query->select(['id', 'name']);
+                        }]);
+                        $sell = $sell->select('id', 'date', 'item_id', 'price', 'discount', 'employee_id');
+                        $sell = $sell->whereDate('date', '=', $request->from_date)->orderBy('date', 'DESC')
+                            ->where('employee_id', '=', $request->employee_id)->get();
+                    } else {
+                        $sell = Sell::with(['employee' => function ($query) {
+                            $query->select(['id', 'first_name']);
+                        }]);
+                        $sell = $sell->with(['item' => function ($query) {
+                            $query->select(['id', 'name']);
+                        }]);
+                        $sell = $sell->select('id', 'date', 'item_id', 'price', 'discount', 'employee_id');
+                        $sell = $sell->whereDate('date', '=', $request->from_date)->orderBy('date', 'DESC')->get();
+                    }
                 } else {
                     //kita filter dari tanggal awal ke akhir
-                    $sell = Sell::with(['employee' => function ($query) {
-                        $query->select(['id', 'first_name']);
-                    }]);
-                    $sell = $sell->with(['item' => function ($query) {
-                        $query->select(['id', 'name']);
-                    }]);
-                    $sell = $sell->select('id', 'date', 'item_id', 'price', 'discount', 'employee_id');
-                    $sell = $sell->whereBetween('date', [$request->from_date, $request->to_date])->orderBy('date', 'DESC')->get();
+                    if (!empty($request->item_id) && !empty($request->employee_id)) {
+                        $sell = Sell::with(['employee' => function ($query) {
+                            $query->select(['id', 'first_name']);
+                        }]);
+                        $sell = $sell->with(['item' => function ($query) {
+                            $query->select(['id', 'name']);
+                        }]);
+                        $sell = $sell->select('id', 'date', 'item_id', 'price', 'discount', 'employee_id');
+                        $sell = $sell->whereBetween('date', [$request->from_date, $request->to_date])
+                            ->where('item_id', '=', $request->item_id)
+                            ->where('employee_id', '=', $request->employee_id)
+                            ->orderBy('date', 'DESC')->get();
+                    } elseif (!empty($request->item_id)) {
+                        $sell = Sell::with(['employee' => function ($query) {
+                            $query->select(['id', 'first_name']);
+                        }]);
+                        $sell = $sell->with(['item' => function ($query) {
+                            $query->select(['id', 'name']);
+                        }]);
+                        $sell = $sell->select('id', 'date', 'item_id', 'price', 'discount', 'employee_id');
+                        $sell = $sell->whereBetween('date', [$request->from_date, $request->to_date])
+                            ->where('item_id', '=', $request->item_id)
+                            ->orderBy('date', 'DESC')->get();
+                    } elseif (!empty($request->employee_id)) {
+                        $sell = Sell::with(['employee' => function ($query) {
+                            $query->select(['id', 'first_name']);
+                        }]);
+                        $sell = $sell->with(['item' => function ($query) {
+                            $query->select(['id', 'name']);
+                        }]);
+                        $sell = $sell->select('id', 'date', 'item_id', 'price', 'discount', 'employee_id');
+                        $sell = $sell->whereBetween('date', [$request->from_date, $request->to_date])
+                            ->where('employee_id', '=', $request->employee_id)
+                            ->orderBy('date', 'DESC')->get();
+                    } else {
+                        $sell = Sell::with(['employee' => function ($query) {
+                            $query->select(['id', 'first_name']);
+                        }]);
+                        $sell = $sell->with(['item' => function ($query) {
+                            $query->select(['id', 'name']);
+                        }]);
+                        $sell = $sell->select('id', 'date', 'item_id', 'price', 'discount', 'employee_id');
+                        $sell = $sell->whereBetween('date', [$request->from_date, $request->to_date])->get();
+                    }
                 }
             } //Load data default
             else {
-                $sell = Sell::with(['employee' => function ($query) {
-                    $query->select(['id', 'first_name']);
-                }]);
-                $sell = $sell->with(['item' => function ($query) {
-                    $query->select(['id', 'name']);
-                }]);
-                $sell = $sell->select('id', 'date', 'item_id', 'price', 'discount', 'employee_id')->orderBy('date', 'DESC')->get();
+                if (!empty($request->item_id) && !empty($request->employee_id)) {
+                    $sell = Sell::with(['employee' => function ($query) {
+                        $query->select(['id', 'first_name']);
+                    }]);
+                    $sell = $sell->with(['item' => function ($query) {
+                        $query->select(['id', 'name']);
+                    }]);
+                    $sell = $sell->select('id', 'date', 'item_id', 'price', 'discount', 'employee_id')
+                        ->where('item_id', '=', $request->item_id)
+                        ->where('employee_id', '=', $request->employee_id)
+                        ->orderBy('date', 'DESC')->get();
+                } elseif (!empty($request->item_id)) {
+                    $sell = Sell::with(['employee' => function ($query) {
+                        $query->select(['id', 'first_name']);
+                    }]);
+                    $sell = $sell->with(['item' => function ($query) {
+                        $query->select(['id', 'name']);
+                    }]);
+                    $sell = $sell->select('id', 'date', 'item_id', 'price', 'discount', 'employee_id')
+                        ->where('item_id', '=', $request->item_id)
+                        ->orderBy('date', 'DESC')->get();
+                } elseif (!empty($request->employee_id)) {
+                    $sell = Sell::with(['employee' => function ($query) {
+                        $query->select(['id', 'first_name']);
+                    }]);
+                    $sell = $sell->with(['item' => function ($query) {
+                        $query->select(['id', 'name']);
+                    }]);
+                    $sell = $sell->select('id', 'date', 'item_id', 'price', 'discount', 'employee_id')
+                        ->where('employee_id', '=', $request->employee_id)
+                        ->orderBy('date', 'DESC')->get();
+                } else {
+                    $sell = Sell::with(['employee' => function ($query) {
+                        $query->select(['id', 'first_name']);
+                    }]);
+                    $sell = $sell->with(['item' => function ($query) {
+                        $query->select(['id', 'name']);
+                    }]);
+                    $sell = $sell->select('id', 'date', 'item_id', 'price', 'discount', 'employee_id')
+                        ->orderBy('date', 'DESC')->get();
+                }
             }
 
             return datatables()->of($sell)

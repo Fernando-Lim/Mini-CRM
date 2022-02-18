@@ -21,38 +21,90 @@ class EmployeeApiController extends Controller
                 //Jika tanggal awal(from_date) hingga tanggal akhir(to_date) adalah sama maka
                 if ($request->from_date === $request->to_date) {
                     //kita filter tanggalnya sesuai dengan request from_date
-                    
 
-                    $employee = Employee::with(['companie' => function ($query) {
-                        $query->select(['id', 'name']);
-                    }])->select('id', 'first_name', 'last_name', 'email', 'phone', 'companie_id', 'created_at', 'updated_at');
-                    $employee = $employee->whereDate('created_at', '=', $request->from_date)->latest()->get();
+                    if (!empty($request->companie_id)) {
+                        $employee = Employee::with(['companie' => function ($query) {
+                            $query->select(['id', 'name']);
+                        }])->select('id', 'first_name', 'last_name', 'email', 'phone', 'companie_id', 'created_at', 'updated_at');
+                        $employee = $employee->whereDate('created_at', '=', $request->from_date)
+                        ->where('first_name', 'LIKE', "%$request->first_name%")
+                            ->where('last_name', 'LIKE', "%$request->last_name%")
+                            ->where('companie_id', '=', $request->companie_id)
+                            ->where('email', 'LIKE', "%$request->email%")
+                            ->where('phone', 'LIKE', "%$request->phone_number%")
+                            ->latest()->get();
+                    } else {
+                        $employee = Employee::with(['companie' => function ($query) {
+                            $query->select(['id', 'name']);
+                        }])->select('id', 'first_name', 'last_name', 'email', 'phone', 'companie_id', 'created_at', 'updated_at');
+                        $employee = $employee->whereDate('created_at', '=', $request->from_date)
+                        ->where('first_name', 'LIKE', "%$request->first_name%")
+                            ->where('last_name', 'LIKE', "%$request->last_name%")
+                            ->where('email', 'LIKE', "%$request->email%")
+                            ->where('phone', 'LIKE', "%$request->phone_number%")
+                            ->latest()->get();
+                    }
                 } else {
                     //kita filter dari tanggal awal ke akhir
-                    $employee = Employee::with(['companie' => function ($query) {
-                        $query->select(['id', 'name']);
-                    }])->select('id', 'first_name', 'last_name', 'email', 'phone', 'companie_id', 'created_at', 'updated_at');
-
-                    $employee = $employee->whereBetween('created_at', array($request->from_date, $request->to_date))->latest()->get();
+                    if (!empty($request->companie_id)) {
+                        $employee = Employee::with(['companie' => function ($query) {
+                            $query->select(['id', 'name']);
+                        }])->select('id', 'first_name', 'last_name', 'email', 'phone', 'companie_id', 'created_at', 'updated_at');
+                        $employee = $employee->whereBetween('created_at', array($request->from_date, $request->to_date))
+                        ->where('first_name', 'LIKE', "%$request->first_name%")
+                        ->where('last_name', 'LIKE', "%$request->last_name%")
+                        ->where('companie_id', '=', $request->companie_id)
+                        ->where('email', 'LIKE', "%$request->email%")
+                        ->where('phone', 'LIKE', "%$request->phone_number%")
+                        ->latest()->get();
+                    }else{
+                        $employee = Employee::with(['companie' => function ($query) {
+                            $query->select(['id', 'name']);
+                        }])->select('id', 'first_name', 'last_name', 'email', 'phone', 'companie_id', 'created_at', 'updated_at');
+                        $employee = $employee->whereBetween('created_at', array($request->from_date, $request->to_date))
+                        ->where('first_name', 'LIKE', "%$request->first_name%")
+                        ->where('last_name', 'LIKE', "%$request->last_name%")
+                        ->where('email', 'LIKE', "%$request->email%")
+                        ->where('phone', 'LIKE', "%$request->phone_number%")
+                        ->latest()->get();
+                    }
                 }
             } //Load data default
             else {
-                $employee = Employee::with(['companie' => function ($query) {
-                    $query->select(['id', 'name']);
-                }]);
-                $employee = $employee->select('id', 'first_name', 'last_name', 'email', 'phone', 'companie_id', 'created_at', 'updated_at')->latest()->get();
+                if (!empty($request->companie_id)) {
+                    $employee = Employee::with(['companie' => function ($query) {
+                        $query->select(['id', 'name']);
+                    }]);
+                    $employee = $employee->select('id', 'first_name', 'last_name', 'email', 'phone', 'companie_id', 'created_at', 'updated_at')
+                        ->where('first_name', 'LIKE', "%$request->first_name%")
+                        ->where('last_name', 'LIKE', "%$request->last_name%")
+                        ->where('companie_id', '=', $request->companie_id)
+                        ->where('email', 'LIKE', "%$request->email%")
+                        ->where('phone', 'LIKE', "%$request->phone_number%")
+                        ->latest()->get();
+                } else {
+                    $employee = Employee::with(['companie' => function ($query) {
+                        $query->select(['id', 'name']);
+                    }]);
+                    $employee = $employee->select('id', 'first_name', 'last_name', 'email', 'phone', 'companie_id', 'created_at', 'updated_at')
+                        ->where('first_name', 'LIKE', "%$request->first_name%")
+                        ->where('last_name', 'LIKE', "%$request->last_name%")
+                        ->where('email', 'LIKE', "%$request->email%")
+                        ->where('phone', 'LIKE', "%$request->phone_number%")
+                        ->latest()->get();
+                }
             }
 
             return datatables()->of($employee)
                 ->addIndexColumn()
                 ->addColumn("created_at", function ($employee) {
-                    $value = Session::get('tz','UTC');
+                    $value = Session::get('tz', 'UTC');
                     $date = Carbon::createFromFormat('Y-m-d H:i:s', $employee->created_at, 'UTC');
                     $date->setTimezone($value);
                     return $date;
                 })
                 ->addColumn("updated_at", function ($employee) {
-                    $value = Session::get('tz','UTC');
+                    $value = Session::get('tz', 'UTC');
                     $date = Carbon::createFromFormat('Y-m-d H:i:s', $employee->updated_at, 'UTC');
                     $date->setTimezone($value);
                     return $date;
@@ -74,7 +126,7 @@ class EmployeeApiController extends Controller
         $employees = Employee::with('companie')->get();
         return EmployeeResource::collection($employees);
     }
-    
+
 
     public function show(Employee $employee)
     {

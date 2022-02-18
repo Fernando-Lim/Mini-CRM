@@ -19,31 +19,48 @@
                         <br>
                         <!-- MULAI DATE RANGE PICKER -->
                         <div class="row input-daterange">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <input type="text" name="from_date" id="from_date" class="form-control"
                                     placeholder="{{ trans('sell.fromdate') }}" readonly />
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <input type="text" name="to_date" id="to_date" class="form-control"
                                     placeholder="{{ trans('sell.todate') }}" readonly />
-                            </div>
-                            <div class="col-md-4">
-                                <button type="button" name="filter" id="filter"
-                                    class="btn btn-primary">{{ trans('sell.btn6') }}</button>
-                                <button type="button" name="refresh" id="refresh"
-                                    class="btn btn-default">{{ trans('sell.btn7') }}</button>
                             </div>
                         </div>
                         <!-- AKHIR DATE RANGE PICKER -->
                         <br>
                         <div class="row">
-                            <div class="col-md-4">
-                                <input type="text" class="form-control filter-input"
-                                    placeholder="{{ trans('sell.filteritem') }}" data-column="2" />
+                            <div class="col-md-6  companie-select">
+                                <select name="item_id" id="item_id" class="form-control">
+                                    <option value="">Select Item</option>
+                                    @forelse ($items as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @empty
+                                        <option value="" selected>{{ trans('sell.status1') }}</option>
+                                    @endforelse
+                                </select>
+                                @include('layouts.error', ['name' => 'item_id'])
                             </div>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control filter-input"
-                                    placeholder="{{ trans('sell.filteremployee') }}" data-column="5" />
+                            <div class="col-md-6  companie-select">
+                                <select name="employee_id" id="employee_id" class="form-control">
+                                    <option value="">Select Employee</option>
+                                    @forelse ($employees as $employee)
+                                        <option value="{{ $employee->id }}">{{ $employee->first_name }}</option>
+                                    @empty
+                                        <option value="" selected>{{ trans('sell.status1') }}</option>
+                                    @endforelse
+                                </select>
+                                @include('layouts.error', ['name' => 'item_id'])
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md" style="text-align: end">
+                                <button type="button" name="filter" id="filter"
+                                    class="btn btn-primary">{{ trans('sell.btn6') }}</button>
+                                <button type="button" name="refresh" id="refresh"
+                                    class="btn btn-default">{{ trans('sell.btn7') }}</button>
                             </div>
                         </div>
                         <br>
@@ -70,6 +87,9 @@
 @endsection
 
 @section('script')
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
@@ -113,11 +133,11 @@
                     }
                 ]
             });
-            $('.filter-input').keyup(function() {
-                table.column($(this).data('column'))
-                    .search($(this).val())
-                    .draw();
-            });
+            // $('.filter-input').keyup(function() {
+            //     table.column($(this).data('column'))
+            //         .search($(this).val())
+            //         .draw();
+            // });
         });
     </script>
     <script>
@@ -132,23 +152,30 @@
         $('#filter').click(function() {
             var from_date = $('#from_date').val();
             var to_date = $('#to_date').val();
+            var item_id = $('#item_id').val();
+            var employee_id = $('#employee_id').val();
             if (from_date != '' && to_date != '') {
                 $('#SellsTable').DataTable().destroy();
-                load_data(from_date, to_date);
+                load_data(from_date, to_date, item_id, employee_id);
             } else {
-                alert('Both Date is required');
+                $('#from_date').val('');
+                $('#to_date').val('');
+                $('#SellsTable').DataTable().destroy();
+                load_data('', '', item_id, employee_id);
             }
         });
         $('#refresh').click(function() {
             $('#from_date').val('');
             $('#to_date').val('');
+            $('#item_id').val('');
+            $('#employee_id').val('');
             $('#SellsTable').DataTable().destroy();
             load_data();
         });
 
 
 
-        function load_data(from_date = '', to_date = '') {
+        function load_data(from_date = '', to_date = '', item_id = '', employee_id = '') {
             var table = $('#SellsTable').DataTable({
                 "processing": true,
                 "dom": "lrtpi",
@@ -160,6 +187,8 @@
                     data: {
                         from_date: from_date,
                         to_date: to_date,
+                        item_id: item_id,
+                        employee_id: employee_id,
                         region: "{{ Session::get('tz') }}"
                     } //jangan lupa kirim parameter tanggal 
                 },
@@ -190,12 +219,11 @@
                     }
                 ]
             });
-            $('.filter-input').keyup(function() {
-                table.column($(this).data('column'))
-                    .search($(this).val())
-                    .draw();
-            });
+            // $('.filter-input').keyup(function() {
+            //     table.column($(this).data('column'))
+            //         .search($(this).val())
+            //         .draw();
+            // });
         };
     </script>
-
 @endsection

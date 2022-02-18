@@ -23,14 +23,23 @@ class ItemApiController extends Controller
                 //Jika tanggal awal(from_date) hingga tanggal akhir(to_date) adalah sama maka
                 if ($request->from_date === $request->to_date) {
                     //kita filter tanggalnya sesuai dengan request from_date
-                    $item = Item::whereDate('created_at', '=', $request->from_date)->get();
+                    $item = Item::whereDate('created_at', '=', $request->from_date)
+                    ->where('name', 'LIKE', "%$request->name%")
+                    ->where('price', 'LIKE', "%$request->price%")
+                    ->latest()->get();
                 } else {
                     //kita filter dari tanggal awal ke akhir
-                    $item = Item::whereBetween('created_at', array($request->from_date, $request->to_date))->get();
+                    $item = Item::whereBetween('created_at', array($request->from_date, $request->to_date))
+                    ->where('name', 'LIKE', "%$request->name%")
+                    ->where('price', 'LIKE', "%$request->price%")
+                    ->latest()->get();
                 }
             } //load data default
             else {
-                $item = Item::select('id', 'name', 'price', 'created_at', 'updated_at')->latest()->get();
+                $item = Item::select('id', 'name', 'price', 'created_at', 'updated_at')
+                    ->where('name', 'LIKE', "%$request->name%")
+                    ->where('price', 'LIKE', "%$request->price%")
+                    ->latest()->get();
             }
             return datatables()->of($item)
                 ->addIndexColumn()

@@ -26,24 +26,52 @@ class SellSummaryApiController extends Controller
                     //kita filter tanggalnya sesuai dengan request from_date
 
 
-                    $sellSummary = SellSummary::with(['employee' => function ($query) {
-                        $query->select(['id', 'first_name', 'companie_id']);
-                    }])->select('id', 'date', 'employee_id', 'created_at', 'updated_at', 'price_total', 'discount_total', 'total');
-                    $sellSummary = $sellSummary->whereDate('date', '=', $request->from_date)->latest()->get();
+                    $sellSummary = SellSummary::with('companie', 'employee');
+                    $employee = Employee::with('companie');
+                    $sellSummary = $sellSummary->whereHas('employee', function ($query) use ($request) {
+                        $query->select(['id', 'first_name', 'last_name', 'companie_id'])
+                            ->where('first_name', 'LIKE', "%$request->first_name%")
+                            ->where('last_name', 'LIKE', "%$request->last_name%");
+                        $getCompany = $request->company_name;
+                        $query->whereHas('companie', function ($query2) use ($getCompany) {
+                            $query2->where('name', 'LIKE', "%{$getCompany}%");
+                        });
+                    });
+                    $sellSummary = $sellSummary->whereDate('date', '=', $request->from_date)->orderBy('date', 'DESC')
+                    ->get();
                 } else {
                     //kita filter dari tanggal awal ke akhir
-                    $sellSummary = SellSummary::with(['employee' => function ($query) {
-                        $query->select(['id', 'first_name', 'companie_id']);
-                    }])->select('id', 'date', 'employee_id', 'created_at', 'updated_at', 'price_total', 'discount_total', 'total');
-                    $sellSummary = $sellSummary->whereBetween('date', [$request->from_date, $request->to_date])->latest()->get();
+                    $sellSummary = SellSummary::with('companie', 'employee');
+                    $employee = Employee::with('companie');
+                    $sellSummary = $sellSummary->whereHas('employee', function ($query) use ($request) {
+                        $query->select(['id', 'first_name', 'last_name', 'companie_id'])
+                            ->where('first_name', 'LIKE', "%$request->first_name%")
+                            ->where('last_name', 'LIKE', "%$request->last_name%");
+                        $getCompany = $request->company_name;
+                        $query->whereHas('companie', function ($query2) use ($getCompany) {
+                            $query2->where('name', 'LIKE', "%{$getCompany}%");
+                        });
+                    });
+                    $sellSummary = $sellSummary->whereBetween('date', [$request->from_date, Carbon::parse($request->to_date)->format('Y-m-d 23:59:59')])->orderBy('date', 'DESC')
+                    ->get();
                 }
             } //Load data default
             else {
-                $sellSummary = SellSummary::with(['employee' => function ($query) {
-                    $query->select(['id', 'first_name', 'companie_id']);
-                }]);
 
-                $sellSummary = $sellSummary->select('id', 'date', 'employee_id', 'created_at', 'updated_at', 'price_total', 'discount_total', 'total')->latest()->get();
+                $sellSummary = SellSummary::with('companie', 'employee');
+                $employee = Employee::with('companie');
+                $sellSummary = $sellSummary->whereHas('employee', function ($query) use ($request) {
+                    $query->select(['id', 'first_name', 'last_name', 'companie_id'])
+                        ->where('first_name', 'LIKE', "%$request->first_name%")
+                        ->where('last_name', 'LIKE', "%$request->last_name%");
+                    $getCompany = $request->company_name;
+                    $query->whereHas('companie', function ($query2) use ($getCompany) {
+                        $query2->where('name', 'LIKE', "%{$getCompany}%");
+                    });
+                })->orderBy('date', 'DESC')
+                ->get();
+
+                // $sellSummary = $sellSummary->select('id', 'date', 'employee_id', 'created_at', 'updated_at', 'price_total', 'discount_total', 'total')->latest()->get();
             }
 
             return datatables()->of($sellSummary)

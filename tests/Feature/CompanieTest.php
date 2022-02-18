@@ -5,7 +5,10 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Companie;
+use Faker\Provider\Image;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class CompanieTest extends TestCase
 {
@@ -55,7 +58,35 @@ class CompanieTest extends TestCase
         $this->assertDatabaseHas('companies', $params);
     }
 
-    
+    public function testAllowUploadImageCompanie()
+    {
+
+        $file = UploadedFile::fake()->image('image_one.jpg');
+        Storage::fake('public');
+        
+
+        $response = $this->post(route('companies.store', $file));
+        
+        Storage::disk('public')->put('logos/' . $file->hashName(), $response);
+        
+        // back in your test
+        Storage::disk('public')->assertExists('logos/' . $file->hashName());
+
+        // $file = UploadedFile::fake()->image('image_one.jpg');
+        // Storage::fake('public');
+        
+        // // Somewhere in your controller
+        // $image = Companie::factory()->make([
+        //     'logo' => $file
+        // ])->toArray();
+        
+        // Storage::disk('public')->put('logos/' . $file->hashName(), $image);
+        
+        // // back in your test
+        // Storage::disk('public')->assertExists('logos/' . $file->hashName());
+    }
+
+
 
     public function testAllowCompanieEdit()
     {

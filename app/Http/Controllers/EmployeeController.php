@@ -19,9 +19,10 @@ class EmployeeController extends Controller
      */
     public function index()
     {
+        $companies = Companie::select('id', 'name')->latest()->get();
         // $employees = Employee::latest()->paginate(10);
         // return view('employee.index',compact('employees'));
-        return view('employee.index');
+        return view('employee.index',compact('companies'));
     }
 
     
@@ -91,16 +92,29 @@ class EmployeeController extends Controller
      */
     public function update(EmployeeUpdateRequest $request, Employee $employee)
     {
+        if($request->password){
+            $employee->update([
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'companie_id' => $request->companie_id,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'password' => bcrypt($request->password),
+                'updated_by_id' => $request->updated_by_id
+            ]);
+        }else{
+            $employee->update([
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'companie_id' => $request->companie_id,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                // 'password' => bcrypt($request->password),
+                'updated_by_id' => $request->updated_by_id
+            ]);
+        }
 
-        $employee->update([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'companie_id' => $request->companie_id,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            // 'password' => bcrypt($request->password),
-            'updated_by_id' => $request->updated_by_id
-        ]);
+        
 
         return redirect()->route('employees.edit',$employee->id)->with('message',['text' => __('employee.status3'), 'class' => 'success']);
     }

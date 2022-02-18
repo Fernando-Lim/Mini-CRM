@@ -26,14 +26,15 @@
                         </div>
                         <div class="col-4">
                             <label for=""> {{trans('sellSummary.table2') }}</label>
-                            <input type="email" class="form-control" name="email" value="{{ $sellSummary->employee->first_name }}" readonly>
+                            <input type="email" class="form-control" name="email" value="{{ $sellSummary->employee->companie->name ?? 0}}" readonly>
                             @include('layouts.error', ['name' => 'email'])
                         </div>
                         <div class="col-4">
                             <label for=""> {{trans('sellSummary.table3') }}</label>
-                            <input type="email" class="form-control" name="email" value="{{ $sellSummary->employee->companie->name ?? 0}}" readonly>
+                            <input type="email" class="form-control" name="email" value="{{ $sellSummary->employee->first_name }}" readonly>
                             @include('layouts.error', ['name' => 'email'])
                         </div>
+                        
                     </div>
                     <label class="mt-4" for=""> {{trans('sellSummary.detail') }} </label>
                     <table class="table text-center table-bordered table-striped">

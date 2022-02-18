@@ -24,17 +24,17 @@ class DatabaseSeeder extends Seeder
         LanguageLine::create([
             'group' => 'companie',
             'key' => 'title1',
-            'text' => ['en' => 'Employee', 'id' => 'Karyawan'],
+            'text' => ['en' => 'Companie', 'id' => 'Perusahaan'],
         ]);
         LanguageLine::create([
             'group' => 'companie',
             'key' => 'title2',
-            'text' => ['en' => 'Add Employee', 'id' => 'Tambah Karyawan'],
+            'text' => ['en' => 'Add Companie', 'id' => 'Tambah Perusahaan'],
         ]);
         LanguageLine::create([
             'group' => 'companie',
             'key' => 'title3',
-            'text' => ['en' => 'Edit Employee', 'id' => 'Ubah Karyawan'],
+            'text' => ['en' => 'Edit Companie', 'id' => 'Ubah Perusahaan'],
         ]);
 
 
@@ -327,7 +327,7 @@ class DatabaseSeeder extends Seeder
         LanguageLine::create([
             'group' => 'employee',
             'key' => 'filtercompany',
-            'text' => ['en' => 'Company Name', 'id' => 'Nama Perusahaan'],
+            'text' => ['en' => 'Select Company', 'id' => 'Pilih Perusahaan'],
         ]);
         LanguageLine::create([
             'group' => 'employee',
@@ -674,31 +674,36 @@ class DatabaseSeeder extends Seeder
         LanguageLine::create([
             'group' => 'sellSummary',
             'key' => 'table3',
-            'text' => ['en' => 'Employee', 'id' => 'Karyawan'],
+            'text' => ['en' => 'First Name', 'id' => 'Nama Depan'],
         ]);
         LanguageLine::create([
             'group' => 'sellSummary',
             'key' => 'table4',
-            'text' => ['en' => 'Created At', 'id' => 'Dibuat'],
+            'text' => ['en' => 'Last Name', 'id' => 'Nama Belakang'],
         ]);
         LanguageLine::create([
             'group' => 'sellSummary',
             'key' => 'table5',
-            'text' => ['en' => 'Updated At', 'id' => 'Diperbaharui'],
+            'text' => ['en' => 'Created At', 'id' => 'Dibuat'],
         ]);
         LanguageLine::create([
             'group' => 'sellSummary',
             'key' => 'table6',
-            'text' => ['en' => 'Price Total', 'id' => 'Total Harga'],
+            'text' => ['en' => 'Updated At', 'id' => 'Diperbaharui'],
         ]);
         LanguageLine::create([
             'group' => 'sellSummary',
             'key' => 'table7',
-            'text' => ['en' => 'Discount Total', 'id' => 'Total Promo'],
+            'text' => ['en' => 'Price Total', 'id' => 'Total Harga'],
         ]);
         LanguageLine::create([
             'group' => 'sellSummary',
             'key' => 'table8',
+            'text' => ['en' => 'Discount Total', 'id' => 'Total Promo'],
+        ]);
+        LanguageLine::create([
+            'group' => 'sellSummary',
+            'key' => 'table9',
             'text' => ['en' => 'Total', 'id' => 'Total'],
         ]);
 
@@ -744,8 +749,13 @@ class DatabaseSeeder extends Seeder
         //sellSummary Filter
         LanguageLine::create([
             'group' => 'sellSummary',
-            'key' => 'filtername',
-            'text' => ['en' => 'Select Employee', 'id' => 'Pilih Karyawan'],
+            'key' => 'filterfirstname',
+            'text' => ['en' => 'Select Employee First Name', 'id' => 'Pilih Nama Depan Karyawan'],
+        ]);
+        LanguageLine::create([
+            'group' => 'sellSummary',
+            'key' => 'filterlastname',
+            'text' => ['en' => 'Select Employee Last Name', 'id' => 'Pilih Nama Belakang Karyawan'],
         ]);
         LanguageLine::create([
             'group' => 'sellSummary',

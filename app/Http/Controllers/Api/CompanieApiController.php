@@ -21,25 +21,34 @@ class CompanieApiController extends Controller
                 //Jika tanggal awal(from_date) hingga tanggal akhir(to_date) adalah sama maka
                 if ($request->from_date === $request->to_date) {
                     //kita filter tanggalnya sesuai dengan request from_date
-                    $companie = Companie::whereDate('created_at', '=', $request->from_date)->get();
+                    $companie = Companie::whereDate('created_at', '=', $request->from_date)
+                        ->where('name', 'LIKE', "%$request->name%")
+                        ->where('email', 'LIKE', "%$request->email%")
+                        ->where('website', 'LIKE', "%$request->website%")->latest()->get();
                 } else {
                     //kita filter dari tanggal awal ke akhir
-                    $companie = Companie::whereBetween('created_at', array($request->from_date, $request->to_date))->get();
+                    $companie = Companie::whereBetween('created_at', array($request->from_date, $request->to_date))
+                        ->where('name', 'LIKE', "%$request->name%")
+                        ->where('email', 'LIKE', "%$request->email%")
+                        ->where('website', 'LIKE', "%$request->website%")->latest()->get();
                 }
             } //load data default
             else {
-                $companie = Companie::select('id', 'name', 'email', 'logo', 'website', 'created_at', 'updated_at')->latest()->get();
+                $companie = Companie::select('id', 'name', 'email', 'logo', 'website', 'created_at', 'updated_at')
+                    ->where('name', 'LIKE', "%$request->name%")
+                    ->where('email', 'LIKE', "%$request->email%")
+                    ->where('website', 'LIKE', "%$request->website%")->latest()->get();
             }
             return datatables()->of($companie)
                 ->addIndexColumn()
                 ->addColumn("created_at", function ($companie) {
-                    $value = Session::get('tz','UTC');
+                    $value = Session::get('tz', 'UTC');
                     $date = Carbon::createFromFormat('Y-m-d H:i:s', $companie->created_at, 'UTC');
                     $date->setTimezone($value);
                     return $date;
                 })
                 ->addColumn("updated_at", function ($companie) {
-                    $value = Session::get('tz','UTC');
+                    $value = Session::get('tz', 'UTC');
                     $date = Carbon::createFromFormat('Y-m-d H:i:s', $companie->updated_at, 'UTC');
                     $date->setTimezone($value);
                     return $date;
